@@ -49,6 +49,10 @@ test_font = pygame.font.Font("./font/Pixeltype.ttf", 60)
 game_active = False
 start_time = 0
 score = 0
+jump_sound = pygame.mixer.Sound("./audio/jump.mp3")
+jump_sound.set_volume(0.2)
+bg_music = pygame.mixer.Sound("./audio/music.wav")
+bg_music.set_volume(0.2)
 
 sky_surface = pygame.image.load("./graphics/Sky.png").convert()
 ground_surface = pygame.image.load("./graphics/ground.png").convert()
@@ -57,7 +61,6 @@ score_surface = test_font.render("My Game", False, (64,64,64 ))
 score_rect = score_surface.get_rect(center  = (400, 50)) 
 
 obstacle_rect_list = []
-
 
 snail_frame1 = pygame.image.load("./graphics/snail/snail1.png").convert_alpha() 
 snail_frame2 = pygame.image.load("./graphics/snail/snail2.png").convert_alpha() 
@@ -113,9 +116,17 @@ while True:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if player_rect.collidepoint(event.pos) and player_rect.bottom >= 300:
                     player_gravity = -20
+                    jump_sound.play()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and player_rect.bottom >= 300:
                     player_gravity = -20
+                    jump_sound.play()
+
+                if event.key == pygame.K_m:
+                    if bg_music.get_volume() == 0:
+                        bg_music.set_volume(0.2)
+                    else:
+                        bg_music.set_volume(0)
 
             if event.type == obstacle_timer:
                 if random.randint(0,2):
@@ -136,6 +147,7 @@ while True:
         else:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and (pygame.time.get_ticks()- score*700 - start_time) > 700:
                 game_active = True
+                bg_music.play(loops=-1)
                 obstacle_rect_list.clear()
                 player_rect.midbottom = (80, 300)
                 player_gravity = 0
@@ -168,6 +180,7 @@ while True:
         game_active = collision(player_rect, obstacle_rect_list)
 
     else:
+        bg_music.stop()
         screen.fill((94,129,162)) 
         screen.blit(player_stand, player_stand_rect) 
 
