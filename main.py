@@ -2,12 +2,15 @@ import random
 import pygame
 from sys import exit
 
-pygame.init()
-
 def display_score():
     score = int((pygame.time.get_ticks()-start_time) / 700) 
     score_surface = test_font.render(f"Score:  {score}", False, (64,64,64 ))  
-    score_rect = score_surface.get_rect(center  = (400, 50)) 
+    score_rect = score_surface.get_rect(center  = (400, 50))
+
+    bg_rect = score_rect.inflate(1, 1)
+    pygame.draw.rect(screen, '#c0e8ec', bg_rect)
+    pygame.draw.rect(screen, '#c0e8ec', bg_rect, 3)
+
     screen.blit(score_surface, score_rect)
     return score
 
@@ -41,6 +44,8 @@ def player_animation():
         player_surface = player_walk[int(player_index)]
     return player_surface
 
+pygame.init()
+
 screen = pygame.display.set_mode((800, 400))
 # Set the caption of the window
 pygame.display.set_caption("Runner")
@@ -57,8 +62,8 @@ bg_music.set_volume(0.2)
 sky_surface = pygame.image.load("./graphics/Sky.png").convert()
 ground_surface = pygame.image.load("./graphics/ground.png").convert()
 
-score_surface = test_font.render("My Game", False, (64,64,64 ))  
-score_rect = score_surface.get_rect(center  = (400, 50)) 
+title_surface = test_font.render("My Game", False, (64,64,64))  
+title_rect = title_surface.get_rect(center  = (400, 50)) 
 
 obstacle_rect_list = []
 
@@ -157,9 +162,6 @@ while True:
         screen.blit(sky_surface, (0, 0))
         screen.blit(ground_surface, (0, 300))
         
-        # pygame.draw.rect(screen, '#c0e8ec', score_rect)
-        # pygame.draw.rect(screen, '#c0e8ec', score_rect, 10)
-
         score =  display_score()
 
         # snail_rect.x -= 8
