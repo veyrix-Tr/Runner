@@ -186,12 +186,13 @@ while True:
         screen.fill((94,129,162)) 
         screen.blit(player_stand, player_stand_rect) 
 
-        score_message = test_font.render(f"Your score: {score}", False, (111, 216, 169))
-        score_message_rect = score_message.get_rect(center = (400, 340))
-
         screen.blit(game_name, game_name_rect)
-        if score == 0: screen.blit(game_message, game_message_rect)
-        else: screen.blit(score_message, score_message_rect)
+        if score == 0: 
+            screen.blit(game_message, game_message_rect)
+        else: 
+            score_message = test_font.render(f"Your score: {score}", False, (111, 216, 169))
+            score_message_rect = score_message.get_rect(center = (400, 340))
+            screen.blit(score_message, score_message_rect)
 
     pygame.display.update()
     clock.tick(60)

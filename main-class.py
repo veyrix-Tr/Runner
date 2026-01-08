@@ -83,7 +83,7 @@ def display_score():
     score_surface = test_font.render(f"Score:  {score}", False, (64,64,64 ))  
     score_rect = score_surface.get_rect(center  = (400, 50))
 
-    # for background color ehind the score
+    # for background color behind the score
     bg_rect = score_rect.inflate(1, 1)
     pygame.draw.rect(screen, '#c0e8ec', bg_rect)
     pygame.draw.rect(screen, '#c0e8ec', bg_rect, 3)
@@ -133,8 +133,6 @@ game_name_rect = game_name.get_rect(center = (400, 80))
 game_message = test_font.render("Press Space to run", False, (111, 216, 169))
 game_message_rect = game_message.get_rect(center = (400, 340))
 
-score_message = test_font.render(f"Your score: {score}", False, (111, 216, 169))
-score_message_rect = score_message.get_rect(center = (400, 340))
 
 
 # Timer for obstacles
@@ -184,8 +182,12 @@ while True:
         screen.fill((94,129,162)) 
         screen.blit(player_stand, player_stand_rect) 
         screen.blit(game_name, game_name_rect)
-        if score == 0: screen.blit(game_message, game_message_rect)
-        else: screen.blit(score_message, score_message_rect)
+        if score == 0: 
+            screen.blit(game_message, game_message_rect)
+        else: 
+            score_message = test_font.render(f"Your score: {score}", False, (111, 216, 169))
+            score_message_rect = score_message.get_rect(center = (400, 340))
+            screen.blit(score_message, score_message_rect)
 
     pygame.display.update()
     clock.tick(60)
