@@ -18,7 +18,7 @@ Pixel Runner is a classic side-scrolling endless runner where the player must ti
 1. Clone the repository:
 ```bash
 git clone https://github.com/veyrix-Tr/Pixel-runner.git
-cd pixel-runner
+cd Pixel-runner
 ```
 
 2. Install dependencies using UV:
